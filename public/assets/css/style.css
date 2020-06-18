@@ -1,9 +1,13 @@
-.background-image{
+.wrapper {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: red;
-    /* background-image: url("../images/newspaper.jpg"); */
-    
+    background-image: url("../images/newspaper.jpg");
+    background-size: inherit;
 }
 
+.container-fluid {
+    background-color: transparent;
+}
 @media (min-width: 1px) {
     .display-1 {
         font-size: 4rem

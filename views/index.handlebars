@@ -10,19 +10,23 @@
                 <span class="sr-only">(current)</span>
             </a>
             <a class="nav-item nav-link" href="/saved">Saved Articles</a>
-            <a href="/scrape" class="btn btn-danger active" role="button" aria-pressed="true">Scrape NPR News</a>
+            <a href="/scrape" class="btn btn-danger active" role="button" aria-pressed="true"
+                style="font-family: 'Trebuchet MS'">scrape npr news</a>
         </div>
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="jumbotron text-center background-image">
-        <div class="overlay">
+<br>
+<br>
+<div class=" container-fluid">
+    <div class="text-center">
+        <div class=" overlay">
             <div class="caption">
-                <h1 class="display-1 text-white"
-                    style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+                <h1 class="display-1 text-black"
+                    style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; ">
                     <img src="../assets/images/npr logo.png" width="200" height="75">
                     scraper</h1>
-
+                <br>
+                <br>
             </div>
         </div>
         <div class=row>
@@ -30,7 +34,7 @@
                 {{#if articles}}
                 {{#each articles}}
                 <div class="card w-90">
-                    <div class="card-header text-white bg-primary">
+                    <div class="card-header text-white" style=" background-color: #1d7cbf; font-family: 'Trebuchet MS'">
                         <a href={{this.link}} target="_blank" class="text-white">
                             <h5>{{this.title}}</h5>
                         </a>
@@ -39,12 +43,14 @@
                         <p class="card-text">
                             {{this.teaser}}
                         </p>
-                        <button id="{{this._id}}" class="btn btn-primary save-btn">Save Article</button>
+                        <button id="{{this._id}}" class="btn save-btn text-white"
+                            style="background-color: #d71a1c; font-family: 'Trebuchet MS'">save
+                            article</button>
                     </div>
                 </div>
                 {{/each}}
                 {{else}}
-                <div class="card text-white bg-warning w-90 p-1">
+                <div class=" card text-white bg-warning w-90 p-1">
                     <div class="card-body text-center">
                         Uh oh. Looks like we don't have any new articles
                     </div>
