@@ -20,7 +20,7 @@ var ArticleSchema = new Schema({
         default: false,
         required: false
     },
-    isSaved: {
+    saved: {
         type: Boolean,
         default: false,
         required: false

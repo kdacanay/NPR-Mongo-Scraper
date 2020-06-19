@@ -21,7 +21,8 @@
     <div class="text-center">
         <div class=" overlay">
             <div class="caption">
-                <h1 class="display-1 text-black" id="scraperTitle">
+                <h1 class="display-1 text-black"
+                    style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; ">
                     <img src="../assets/images/npr logo.png" width="200" height="75">
                     scraper</h1>
                 <br>
@@ -30,7 +31,6 @@
         </div>
         <div class=row>
             <div class="col-12">
-                {{#if articles}}
                 {{#each articles}}
                 <div class="card w-90">
                     <div class="card-header text-white" style=" background-color: #1d7cbf; font-family: 'Trebuchet MS'">
@@ -42,19 +42,38 @@
                         <p class="card-text">
                             {{this.teaser}}
                         </p>
-                        <button data-id="{{_id}}" type="submit" class="btn save-btn text-white"
-                            style="background-color: #d71a1c; font-family: 'Trebuchet MS'">save
-                            article</button>
+                        <button data="{{this._id}}" class="btn btn-info note-btn">Article Notes</button>
+                        <button data="{{this._id}}" class="btn btn-danger delete-btn">Delete From Saved</button>
                     </div>
                 </div>
                 {{/each}}
-                {{else}}
-                <div class=" card text-white bg-warning w-90 p-1">
-                    <div class="card-body text-center">
-                        Uh oh. Looks like we don't have any new articles
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="note-modal" tabindex="-1" role="dialog" aria-labelledby="successMessage"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Notes for Article <span id="article-id"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <ul class="list-group list-group-flush articles-available">
+                        </ul>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <label for="note-input" class="sr-only">Enter Note Here</label>
+                        <textarea class="form-control" id="note-input" rows="3" placeholder="New Note"></textarea>
                     </div>
                 </div>
-                {{/if}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="save-note">Save Note</button>
+                </div>
             </div>
         </div>
     </div>

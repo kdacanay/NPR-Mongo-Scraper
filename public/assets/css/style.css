@@ -1,10 +1,21 @@
 .wrapper {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: red;
-    background-image: url("../images/newspaper.jpg");
-    background-size: inherit;
+    background-image: url("../images/newspaper-stack.jpg");
+    background-size: 1700px;
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
 }
 
+#scraperTitle {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-shadow: -.7px -.7px 0 
+    #ececec, .7px -.7px 0 
+    #ececec, -.7px .7px 0 
+    #ececec, .7px .7px 0 
+    #ececec;
+}
 .container-fluid {
     background-color: transparent;
 }
