@@ -2,6 +2,8 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
+mongoose.set('useFindAndModify', false);
+
 // Require all models
 var db = require("./models");
 

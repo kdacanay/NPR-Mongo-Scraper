@@ -1,13 +1,11 @@
 var express = require("express");
-var logger = require("morgan");
-var mongoose = require("mongoose");
 var router = express.Router();
 var axios = require("axios");
 var cheerio = require("cheerio");
-var app = express();
 
 // Require all models
 var db = require("../models");
+const { response } = require("express");
 
 
 //get route for npr website
@@ -23,21 +21,25 @@ router.get("/scrape", function (req, res) {
             result.title = $(this).children(".title").children("a").text();
             result.link = $(this).children(".title").children("a").attr("href");
             result.teaser = $(this).children(".teaser").text();
-
-            db.Article.create(result).then(function (dbArticle) {
-                console.log(dbArticle);
-            })
-                .catch(function (err) {
-                    console.log(err);
-                });
+            if (result.title && result.link && result.teaser) {
+                db.Article.create(result).then(function (dbArticle) {
+                    console.log(dbArticle);
+                })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+                res.redirect('/');
+                return
+            }
+            else if (error || response.statusCode != 200) {
+                res.send("Error: Unable to Receive New Articles");
+            }
         });
-        //send message client
-        res.send("Scrape Complete");
-    })
+    });
 });
 
 router.get("/", (req, res) => {
-    db.Article.find({}, null, { sort: { teaser: -1 } }).lean()
+    db.Article.find({}, null, { sort: { teaser: -1 } }).limit(-50).lean()
         .then(function (dbArticle) {
             // If we were able to successfully find Articles, send them back to the client
             const retrievedArticles = dbArticle;
@@ -45,26 +47,30 @@ router.get("/", (req, res) => {
             hbsObject = {
                 articles: dbArticle
             };
-            res.render("index", hbsObject);
+            if (dbArticle.length === 0) {
+                alert("No new articles");
+            } else {
+                res.render("index", hbsObject);
+            }
         })
         .catch(function (err) {
             // If an error occurred, send it to the client
             res.json(err);
         });
 });
-// // Route for getting all Articles from the db
-// router.get("/articles", function (req, res) {
-//     // Grab every document in the Articles collection
-//     db.Article.find({})
-//         .then(function (dbArticle) {
-//             // If we were able to successfully find Articles, send them back to the client
-//             res.json(dbArticle);
-//         })
-//         .catch(function (err) {
-//             // If an error occurred, send it to the client
-//             res.json(err);
-//         });
-// });
+// Route for getting all Articles from the db
+router.get("/articles", function (req, res) {
+    // Grab every document in the Articles collection
+    db.Article.find({}).limit(-50)
+        .then(function (dbArticle) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(dbArticle);
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
 
 router.get("/saved", (req, res) => {
     db.Article.find({ saved: true }, null, { sort: { teaser: -1 } }).lean()
@@ -91,5 +97,16 @@ router.put("/save/:id", function (req, res) {
             // If an error occurred, send it to the client
             res.json(err);
         });;
+});
+router.put("/remove/:id", function (req, res) {
+    db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false })
+        .then(function (data) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(data)
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
 });
 module.exports = router;
