@@ -28,14 +28,13 @@ router.get("/scrape", function (req, res) {
                     .catch(function (err) {
                         console.log(err);
                     });
-                res.redirect('/');
-                return
-            }
-            else if (error || response.statusCode != 200) {
-                res.send("Error: Unable to Receive New Articles");
             }
         });
-    });
+        res.redirect('/');
+    }).catch(function (err) {
+        console.log(err);
+    }
+    );
 });
 
 router.get("/", (req, res) => {
