@@ -26,7 +26,7 @@ const router = require("./controllers/api");
 app.use(router);
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost/NPR", { useNewUrlParser: true });
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Parse request body as JSON
