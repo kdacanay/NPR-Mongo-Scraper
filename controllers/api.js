@@ -3,9 +3,10 @@ var router = express.Router();
 var axios = require("axios");
 var cheerio = require("cheerio");
 
+
 // Require all models
 var db = require("../models");
-const { response } = require("express");
+// const { response } = require("express");
 
 
 //get route for npr website
@@ -128,12 +129,12 @@ router.get("/articles/:id", function (req, res) {
 });
 
 // Route for saving/updating an Article's associated Note
-router.post("/articles/:id", function (req, res) {
-    // console.log(req.body);
-    var result = {};
+router.post("/note/:id", function (req, res) {
+    console.log(req.body);
+    // var result = {};
     // console.log(result);
     // Create a new note and pass the req.body to the entry
-    db.Note.create(result)
+    db.Note.create(req.body)
         .then(function (dbNote) {
             // console.log(req.body);
             // console.log(" THIS IS RES +++++++++++++++++++++++++++++++++++++ " + res);

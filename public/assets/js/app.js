@@ -64,40 +64,41 @@ $(document).ready(function () {
             // })
             $('#note-modal').modal('toggle');
         });
-
-        // $('.btn-deletenote').click(function (event) {})
-        $(document).on('click', '.btn-deletenote', function () {
-            event.preventDefault();
-            console.log($(this).attr("data"))
-            const id = $(this).attr("data");
-            console.log(id);
-            $.ajax(`/notes/${id}`, {
-                type: "DELETE"
-            }).then(function () {
-                $('#note-modal').modal('toggle');
-            });
-        });
-
-        $("#save-note").click(function (event) {
-            event.preventDefault();
-            const id = $(this).attr('data');
-            var noteTextObj = {
-                body: $('#note-input').val()
-            }
-            console.log(noteTextObj);
-            console.log(id);
-            // $('#note-input').val('');
-            $.ajax("/articles/" + id, {
-                type: "POST",
-                data: { text: noteTextObj }
-            }).then(function (data) {
-                console.log(data)
-                // $("#notes").append(noteText);
-            })
-            $('#note-modal').modal('toggle');
-            // $("#note-input").val("");
-        });
-
     });
+
+    // $('.btn-deletenote').click(function (event) {})
+    $(document).on('click', '.btn-deletenote', function () {
+        event.preventDefault();
+        console.log($(this).attr("data"))
+        const id = $(this).attr("data");
+        console.log(id);
+        $.ajax(`/note/${id}`, {
+            type: "DELETE"
+        }).then(function () {
+            $('#note-modal').modal('toggle');
+        });
+    });
+
+    $("#save-note").click(function (event) {
+        event.preventDefault();
+        const id = $(this).attr('data');
+        var noteTextObj = {
+            body: $('#note-input').val()
+        }
+        console.log(noteTextObj);
+        console.log(id);
+        // $('#note-input').val('');
+        $.ajax("/note/" + id, {
+            type: "POST",
+            data: noteTextObj
+        }).then(function (data) {
+            console.log(data)
+            // $("#notes").append(noteText);
+        })
+        $('#note-modal').modal('toggle');
+        // $("#note-input").val("");
+    });
+
 });
+
 

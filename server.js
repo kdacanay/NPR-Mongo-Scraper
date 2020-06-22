@@ -21,9 +21,7 @@ app.set("view engine", "handlebars");
 
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
-// Controllers
-const router = require("./controllers/api");
-app.use(router);
+
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect("mongodb://localhost/NPR", { useNewUrlParser: true });
@@ -35,7 +33,9 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-
+// Controllers
+const router = require("./controllers/api");
+app.use(router);
 
 // Start the server
 app.listen(PORT, function () {
