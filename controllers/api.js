@@ -32,15 +32,15 @@ router.get("/scrape", function (req, res) {
                     });
             }
         });
-
+        res.redirect('/');
     }).catch(function (err) {
-        res.json(err);
+        res.json(err)
     })
-    res.redirect('/');
+    // res.send("scraped");
 });
 
 router.get("/", (req, res) => {
-    db.Article.find({}, null, { sort: { teaser: -1 } }).limit(-0).lean()
+    db.Article.find({}, null, { sort: { teaser: -1 } }).limit(-30).lean()
         .then(function (dbArticle) {
             // If we were able to successfully find Articles, send them back to the client
             const retrievedArticles = dbArticle;
