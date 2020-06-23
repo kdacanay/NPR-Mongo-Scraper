@@ -28,14 +28,15 @@ router.get("/scrape", function (req, res) {
                 })
                     .catch(function (err) {
                         console.log(err);
+                        red.json(err);
                     });
             }
         });
-        res.redirect('/');
+
     }).catch(function (err) {
-        console.log(err);
-    }
-    );
+        res.json(err);
+    })
+    res.redirect('/');
 });
 
 router.get("/", (req, res) => {

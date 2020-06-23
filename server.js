@@ -13,6 +13,8 @@ var PORT = process.env.PORT || process.argv[2] || 8080;
 // Initialize Express
 var app = express();
 
+// Use morgan logger for logging requests
+app.use(logger("dev"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -36,8 +38,7 @@ mongoose.connect("mongodb://localhost/NPR", { useNewUrlParser: true });
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
-// Use morgan logger for logging requests
-app.use(logger("dev"));
+
 
 // Make public a static folder
 app.use(express.static("public"));
