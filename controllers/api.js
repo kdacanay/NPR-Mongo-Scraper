@@ -39,7 +39,7 @@ router.get("/scrape", function (req, res) {
 });
 
 router.get("/", (req, res) => {
-    db.Article.find({}, null, { sort: { teaser: -1 } }).limit(-50).lean()
+    db.Article.find({}, null, { sort: { teaser: -1 } }).limit(-30).lean()
         .then(function (dbArticle) {
             // If we were able to successfully find Articles, send them back to the client
             const retrievedArticles = dbArticle;
@@ -129,7 +129,7 @@ router.get("/articles/:id", function (req, res) {
 });
 
 // Route for saving/updating an Article's associated Note
-router.post("/articles/:id", function (req, res) {
+router.post("/note/:id", function (req, res) {
     console.log(req.body);
     db.Note.create(req.body)
         .then(function (dbNote) {

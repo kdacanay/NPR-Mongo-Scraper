@@ -14,7 +14,7 @@ $(document).ready(function () {
             data: saved
         }).then(function () {
             console.log(this);
-            var alert = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            var alert = `<br><br><div class="alert" role="alert">
                 Your article has been saved!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button></div>`
@@ -48,19 +48,23 @@ $(document).ready(function () {
         $.ajax("/articles/" + id, {
             type: "GET",
         }).then(function (data) {
-            console.log(data)
+            console.log(data);
             if (data.note) {
-                $("#notes").append(data.note.text);
-            }
+                $(".notes-available").empty();
+                var noteBody = data.note.body;
+                var noteId = data.note._id;
+                $(".notes-available").append("<li class='list-group-item'>" + noteBody + "<button type='button' class='btn btn-danger btn-sm float-right deletenote' data=" + noteId + "'>X</button></li>")
+            };
             $('#note-modal').modal('toggle');
         });
     });
-    $(document).on('click', '.btn-deletenote', function () {
+
+    $(document).on('click', '.deletenote', function () {
         event.preventDefault();
         console.log($(this).attr("data"))
         const id = $(this).attr("data");
         console.log(id);
-        $.ajax(`/note/${id}`, {
+        $.ajax("/note/" + id, {
             type: "DELETE"
         }).then(function () {
             $('#note-modal').modal('toggle');
@@ -74,7 +78,7 @@ $(document).ready(function () {
         console.log(noteText);
         console.log(id);
         // $('#note-input').val('');
-        $.ajax("/articles/" + id, {
+        $.ajax("/note/" + id, {
             type: "POST",
             data: { body: noteText }
         }).then(function (data) {
