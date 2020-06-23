@@ -17,7 +17,7 @@ router.get("/scrape", function (req, res) {
         // console.log(req);
         // console.log(res);
         $(".item-info").each(function (i, element) {
-            var count = i;
+            // var count = i;
             var result = {};
             result.title = $(this).children(".title").children("a").text();
             result.link = $(this).children(".title").children("a").attr("href");
@@ -40,7 +40,7 @@ router.get("/scrape", function (req, res) {
 });
 
 router.get("/", (req, res) => {
-    db.Article.find({}, null, { sort: { teaser: -1 } }).limit(-50).lean()
+    db.Article.find({}, null, { sort: { teaser: -1 } }).limit(-0).lean()
         .then(function (dbArticle) {
             // If we were able to successfully find Articles, send them back to the client
             const retrievedArticles = dbArticle;
@@ -49,8 +49,8 @@ router.get("/", (req, res) => {
                 articles: dbArticle
             };
             if (dbArticle.length === 0) {
-                // res.render("placeholder", { message: "click scrape for NPR news" });
-                // } else {
+                res.render("placeholder", { message: "click scrape for NPR news" });
+            } else {
                 res.render("index", hbsObject);
             }
         })

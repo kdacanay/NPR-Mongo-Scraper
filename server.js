@@ -37,13 +37,13 @@ module.exports = app;
 
 mongoose.set('useFindAndModify', false);
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGOLAB_BLUE_URI = process.env.MONGODB_URI || "mongodb://heroku_70nj2mj8:oaml67l2a2jbr18nbjmn75hgkc@ds145892.mlab.com:45892/heroku_70nj2mj8";
 // mongoose.connect("mongodb://localhost/NPR", { useNewUrlParser: true });
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
 // mongoose.Promise = Promise;
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGOLAB_BLUE_URI);
 
 
 // Make public a static folder
