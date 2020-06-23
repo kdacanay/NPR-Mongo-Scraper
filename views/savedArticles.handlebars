@@ -63,12 +63,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-12" id="notes">
-                            <p>{{_id}}</p>
-                            <p>{{notes}}</p>
+                            <p>{{this._id}}</p>
+                            <p>{{this.notes}}</p>
                             {{!-- <button class="btn btn-primary" id="removeNote">X</button> --}}
                         </div>
                     </div>
                 </div>
+                <div id="notes"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="save-note">Save Note</button>

@@ -129,7 +129,7 @@ router.get("/articles/:id", function (req, res) {
 });
 
 // Route for saving/updating an Article's associated Note
-router.post("/note/:id", function (req, res) {
+router.post("/articles/:id", function (req, res) {
     console.log(req.body);
     // var result = {};
     // console.log(result);

@@ -2,7 +2,7 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-mongoose.set('useFindAndModify', false);
+
 
 // Require all models
 var db = require("./models");
@@ -36,7 +36,7 @@ app.use(express.static("public"));
 // Controllers
 const router = require("./controllers/api");
 app.use(router);
-
+mongoose.set('useFindAndModify', true);
 // Start the server
 app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
