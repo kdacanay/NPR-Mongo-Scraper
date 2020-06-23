@@ -39,6 +39,12 @@ mongoose.connect("mongodb://localhost/NPR", { useNewUrlParser: true });
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
+let reqTimer = setTimeout(function wakeUp() {
+    request("http://glacial-wildwood-61237.herokuapp.com/", function () {
+        console.log("WAKE UP DYNO");
+    });
+    return reqTimer = setTimeout(wakeUp, 1200000);
+}, 1200000);
 
 // Make public a static folder
 app.use(express.static("public"));
