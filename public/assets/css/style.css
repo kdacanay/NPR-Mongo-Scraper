@@ -16,6 +16,9 @@
     #ececec, .7px .7px 0 
     #ececec;
 }
+.message {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 .container-fluid {
     background-color: transparent;
 }

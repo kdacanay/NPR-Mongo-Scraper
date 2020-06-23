@@ -19,7 +19,6 @@ $(document).ready(function () {
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button></div>`
             button.parent().append(alert);
-            // $(".card w-90").attr("<div class='hidden'>");
         }
         );
     });
@@ -38,7 +37,6 @@ $(document).ready(function () {
         }).then(function () {
             console.log(this);
             $("#savedArticles").remove();
-            // location.reload();
         })
     })
     // event handler for opening the note modal
@@ -57,8 +55,6 @@ $(document).ready(function () {
             $('#note-modal').modal('toggle');
         });
     });
-
-    // $('.btn-deletenote').click(function (event) {})
     $(document).on('click', '.btn-deletenote', function () {
         event.preventDefault();
         console.log($(this).attr("data"))

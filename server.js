@@ -36,7 +36,7 @@ app.use(express.static("public"));
 // Controllers
 const router = require("./controllers/api");
 app.use(router);
-mongoose.set('useFindAndModify', true);
+mongoose.set('useFindAndModify', false);
 // Start the server
 app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
