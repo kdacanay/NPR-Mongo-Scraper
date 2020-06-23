@@ -38,11 +38,11 @@ module.exports = app;
 mongoose.set('useFindAndModify', false);
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-mongoose.connect("mongodb://localhost/NPR", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/NPR", { useNewUrlParser: true });
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB
-mongoose.Promise = Promise;
+// mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
 
