@@ -1,14 +1,9 @@
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-var cheerio = require("cheerio");
-
-
-// Require all models
-var db = require("./models");
-
+var exphbs = require("express-handlebars");
 // Port configuration for local/Heroku
-var PORT = process.env.PORT || process.argv[2] || 8080;
+var PORT = process.env.PORT || 8080;
 
 // Initialize Express
 var app = express();
@@ -18,17 +13,28 @@ app.use(logger("dev"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// Use express.static to serve the public folder as a static directory
+app.use(express.static("public"));
 // Configure middleware
 // Handlebars
-const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-// Use express.static to serve the public folder as a static directory
-app.use(express.static("public"));
 // Controllers
-const router = require("./controllers/api");
+var router = require("./controllers/api");
 app.use(router);
+
+var syncOptions = {
+    force: false
+};
+
+// If running a test, set syncOptions.force to true
+// clearing the `testdb`
+if (process.env.NODE_ENV === "test") {
+    syncOptions.force = true;
+}
+module.exports = app;
+
 mongoose.set('useFindAndModify', false);
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
@@ -39,12 +45,6 @@ mongoose.connect("mongodb://localhost/NPR", { useNewUrlParser: true });
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI);
 
-let reqTimer = setTimeout(function wakeUp() {
-    request("http://glacial-wildwood-61237.herokuapp.com/", function () {
-        console.log("WAKE UP DYNO");
-    });
-    return reqTimer = setTimeout(wakeUp, 1200000);
-}, 1200000);
 
 // Make public a static folder
 app.use(express.static("public"));
