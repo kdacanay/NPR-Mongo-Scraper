@@ -165,4 +165,18 @@ router.delete("/note/:id", function (req, res) {
             res.json(err);
         });
 });
+
+router.delete("/articles/:id", function (req, res) {
+    db.Article.findByIdAndRemove({ _id: req.params.id })
+        .then(function (data) {
+            // If we were able to successfully find Articles, send them back to the client
+            res.json(data);
+            // window.reload();
+        })
+        .catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+            res.redirect('/');
+        });;
+});
 module.exports = router;

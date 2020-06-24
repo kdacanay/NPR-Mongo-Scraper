@@ -90,6 +90,17 @@ $(document).ready(function () {
         // $("#note-input").val("");
     });
 
+    $(".delete-article").click(function (event) {
+        event.preventDefault();
+        const id = $(this).attr('data');
+        $.ajax("/articles/" + id, {
+            type: "DELETE"
+        }).then(function (data) {
+            console.log(data);
+            location.reload();
+        })
+    });
+
 });
 
 
