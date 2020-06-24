@@ -68,6 +68,7 @@ $(document).ready(function () {
             type: "DELETE"
         }).then(function () {
             $('#note-modal').modal('toggle');
+            location.reload();
         });
     });
 
@@ -82,7 +83,7 @@ $(document).ready(function () {
             type: "POST",
             data: { body: noteText }
         }).then(function (data) {
-            console.log(data)
+            console.log(data);
             $('#note-input').val("");
             // $("#notes").append(noteText);
         })

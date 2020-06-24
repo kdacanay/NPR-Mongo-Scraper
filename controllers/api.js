@@ -137,7 +137,9 @@ router.post("/note/:id", function (req, res) {
             // console.log(req.body);
             // console.log(" THIS IS RES +++++++++++++++++++++++++++++++++++++ " + res);
             console.log(dbNote);
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+            var note = "";
+            var note = dbNote.body;
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, ({ note: dbNote._id, body: note }), { new: true });
         })
         .then(function (dbArticle) {
             console.log(dbArticle);
@@ -163,6 +165,7 @@ router.delete("/note/:id", function (req, res) {
         .catch(function (err) {
             // If an error occurred, send it to the client
             res.json(err);
+
         });
 });
 
