@@ -64,7 +64,7 @@ $(document).ready(function () {
         console.log($(this).attr("data"))
         const id = $(this).attr("data");
         console.log(id);
-        $.ajax("/note/" + id, {
+        $.ajax("/articles/" + id, {
             type: "DELETE"
         }).then(function () {
             $('#note-modal').modal('toggle');
@@ -79,8 +79,8 @@ $(document).ready(function () {
         console.log(noteText);
         console.log(id);
         // $('#note-input').val('');
-        $.ajax("/note/" + id, {
-            type: "POST",
+        $.ajax("articles/notes/" + id, {
+            type: "PUT",
             data: { body: noteText }
         }).then(function (data) {
             console.log(data);

@@ -92,6 +92,7 @@ router.get("/articles", function (req, res) {
 
 router.put("/save/:id", function (req, res) {
     db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: true })
+        .populate({ path: 'note', model: "Note" })
         .then(function (data) {
             // If we were able to successfully find Articles, send them back to the client
             res.json(data);
@@ -102,7 +103,7 @@ router.put("/save/:id", function (req, res) {
         });;
 });
 
-router.put("/remove/:id", function (req, res) {
+router.post("/remove/:id", function (req, res) {
     db.Article.findOneAndUpdate({ _id: req.params.id }, { saved: false })
         .then(function (data) {
             // If we were able to successfully find Articles, send them back to the client
@@ -116,7 +117,7 @@ router.put("/remove/:id", function (req, res) {
 // Route for grabbing a specific Article by id, populate it with it's note
 router.get("/articles/:id", function (req, res) {
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-    db.Article.findOne({ _id: req.params.id })
+    db.Article.findByIdAndUpdate({ _id: req.params.id })
         // ..and populate all of the notes associated with it
         .populate({ path: 'note', model: 'Note' })
         .then(function (dbArticle) {
@@ -130,7 +131,7 @@ router.get("/articles/:id", function (req, res) {
 });
 
 // Route for saving/updating an Article's associated Note
-router.post("/note/:id", function (req, res) {
+router.put("/articles/notes/:id", function (req, res) {
     console.log(req.body);
     db.Note.create(req.body)
         .then(function (dbNote) {
@@ -139,7 +140,7 @@ router.post("/note/:id", function (req, res) {
             console.log(dbNote);
             var note = "";
             var note = dbNote.body;
-            return db.Article.findOneAndUpdate({ _id: req.params.id }, ({ note: dbNote._id, body: note }), { new: true });
+            return db.Article.findByIdAndUpdate({ _id: req.params.id }, ({ note: dbNote._id, body: note }), { new: true });
         })
         .then(function (dbArticle) {
             console.log(dbArticle);
@@ -151,7 +152,7 @@ router.post("/note/:id", function (req, res) {
             res.json(err);
         });
 });
-router.delete("/note/:id", function (req, res) {
+router.delete("/articles/:id", function (req, res) {
     // Create a new note and pass the req.body to the entry
     db.Note.findByIdAndRemove({ _id: req.params.id })
         .then(function (dbNote) {
